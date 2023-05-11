@@ -1,5 +1,6 @@
 package com.sample.kotlintest
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sample.kotlintest.responsmodels.WeatherResponse
+import com.sample.kotlintest.viewmodels.WeatherViewModel
 
-public class WeatherAdapter (private val mList: List<WeatherResponse>)  : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
-
+public class WeatherAdapter (val viewModel: WeatherViewModel, private val mList: List<WeatherResponse>, val context: Context)  : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_item, parent, false)
