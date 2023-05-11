@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sample.kotlintest.networkcalls.RetrofitHelper
 import com.sample.kotlintest.networkcalls.WeatherApi
+import com.sample.kotlintest.responsmodels.WeatherResponse
 import com.sample.kotlintest.ui.theme.KotlinTestTheme
 import kotlinx.android.synthetic.main.activity_main.button
+import kotlinx.android.synthetic.main.activity_main.recyclerview
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -31,10 +26,14 @@ class MainActivity : ComponentActivity() {
             // launching a new coroutine
             GlobalScope.launch {
                 val result = weatherApi.getWeatherData()
-                if (result != null)
-                // Checking the results
-                    Log.d("ayush: ", result.body().toString())
+                Log.d("ayush: ", result.body().toString())
             }
+
+            recyclerview.layoutManager = LinearLayoutManager(this)
+            val data = ArrayList<WeatherResponse>()
+            // This will pass the ArrayList to our Adapter
+            val adapter = WeatherAdapter(data)
+            recyclerview.adapter = adapter
         }
     }
 }
